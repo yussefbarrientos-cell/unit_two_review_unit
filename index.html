@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit 2 ESL Grammar Practice Lab</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: rgba(21, 29, 46, 0.75);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --accent-cyan: #06b6d4;
+      --accent-purple: #8b5cf6;
+      --accent-emerald: #10b981;
+      --accent-rose: #f43f5e;
+      --accent-amber: #f59e0b;
+      --glass-glow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+      --radius-lg: 16px;
+      --radius-md: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.12) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.12) 0px, transparent 50%);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 950px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    header {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 20px 24px;
+      box-shadow: var(--glass-glow);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .brand-title h1 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-title p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .stats-group {
+      display: flex;
+      gap: 12px;
+    }
+
+    .stat-badge {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      padding: 8px 14px;
+      border-radius: var(--radius-md);
+      text-align: center;
+      min-width: 70px;
+    }
+
+    .stat-badge .num {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+    }
+
+    .stat-badge .lbl {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+
+    .mode-nav {
+      display: flex;
+      gap: 8px;
+      background: rgba(15, 23, 42, 0.8);
+      padding: 6px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--card-border);
+      overflow-x: auto;
+    }
+
+    .mode-btn {
+      flex: 1;
+      min-width: 130px;
+      padding: 10px 14px;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .mode-btn:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .mode-btn.active {
+      background: linear-gradient(135deg, var(--accent-cyan), #0891b2);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+    }
+
+    .filter-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15, 23, 42, 0.6);
+      padding: 8px 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--card-border);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .filter-title {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .filter-pills {
+      display: flex;
+      gap: 6px;
+    }
+
+    .filter-pill {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-pill:hover {
+      border-color: var(--accent-cyan);
+      color: var(--text-main);
+    }
+
+    .filter-pill.active {
+      background: rgba(6, 182, 212, 0.15);
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+    }
+
+    .workspace {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--glass-glow);
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .topic-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(139, 92, 246, 0.15);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      color: #c084fc;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .prompt-box {
+      font-size: 1.15rem;
+      font-weight: 600;
+      line-height: 1.6;
+      margin-bottom: 24px;
+      color: var(--text-main);
+    }
+
+    .persona-badge {
+      color: var(--accent-amber);
+      font-weight: 700;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .btn-option {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      padding: 14px 18px;
+      border-radius: var(--radius-md);
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn-option:hover {
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .btn-option.correct {
+      background: rgba(16, 185, 129, 0.2) !important;
+      border-color: var(--accent-emerald) !important;
+      color: #a7f3d0;
+    }
+
+    .btn-option.wrong {
+      background: rgba(244, 63, 94, 0.2) !important;
+      border-color: var(--accent-rose) !important;
+      color: #fecdd3;
+    }
+
+    .feedback-banner {
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: slideIn 0.2s ease-out;
+    }
+
+    .feedback-banner.success {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid var(--accent-emerald);
+      color: #34d399;
+    }
+
+    .feedback-banner.error {
+      background: rgba(244, 63, 94, 0.15);
+      border: 1px solid var(--accent-rose);
+      color: #fb7185;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .actions-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--card-border);
+      padding-top: 16px;
+    }
+
+    .btn-next {
+      background: linear-gradient(135deg, var(--accent-cyan), #0891b2);
+      color: #fff;
+      border: none;
+      padding: 10px 22px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-next:hover {
+      opacity: 0.9;
+      box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <header>
+      <div class="brand-title">
+        <h1>UNIT 2 GRAMMAR PRACTICE LAB</h1>
+        <p>Simple Present, Present Continuous & Future (Will / Be Going To)</p>
+      </div>
+      <div class="stats-group">
+        <div class="stat-badge">
+          <div class="num" id="score-val">0</div>
+          <div class="lbl">Score</div>
+        </div>
+        <div class="stat-badge">
+          <div class="num" id="streak-val">0</div>
+          <div class="lbl">Streak</div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="mode-nav">
+      <button class="mode-btn active" data-tense="ALL">ALL TENSES</button>
+      <button class="mode-btn" data-tense="SIMPLE_PRESENT">SIMPLE PRESENT</button>
+      <button class="mode-btn" data-tense="PRESENT_CONTINUOUS">PRESENT CONTINUOUS</button>
+      <button class="mode-btn" data-tense="FUTURE">FUTURE (WILL / GOING TO)</button>
+    </nav>
+
+    <div class="filter-bar">
+      <span class="filter-title">Filter Form:</span>
+      <div class="filter-pills">
+        <button class="filter-pill active" data-form="ALL">All Forms</button>
+        <button class="filter-pill" data-form="AFFIRMATIVE">Affirmative (+)</button>
+        <button class="filter-pill" data-form="NEGATIVE">Negative (-)</button>
+        <button class="filter-pill" data-form="QUESTION">Question (?)</button>
+      </div>
+    </div>
+
+    <div class="workspace" id="exercise-card">
+      <div>
+        <div class="topic-tag" id="topic-badge">SIMPLE PRESENT • HABIT</div>
+        <div class="prompt-box" id="prompt-text">Loading practice item...</div>
+        <div id="feedback-area"></div>
+        <div class="options-grid" id="options-area"></div>
+      </div>
+
+      <div class="actions-row">
+        <span style="font-size:0.8rem; color:var(--text-muted);" id="item-counter">Item 1</span>
+        <button class="btn-next hidden" id="next-btn" onclick="nextQuestion()">NEXT EXERCISE →</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const dataset = [
+      // ==========================================
+      // === SIMPLE PRESENT - EXTENSIVE SECTION ===
+      // ==========================================
+      
+      // -- Simple Present Affirmative (+) --
+      {
+        tense: "SIMPLE_PRESENT", form: "AFFIRMATIVE", useCase: "Habit / Routine",
+        prompt: "<span class='persona-badge'>Kevin</span> ______ (play) golf twice a week with his coworkers.",
+        options: [
+          { text: "plays", correct: true, explain: "Correct! Simple present is used for regular habits/routines. Singular subjects take '-s'." },
+          { text: "is playing", correct: false, explain: "Incorrect! Present continuous is for actions happening right now." },
+          { text: "play", correct: false, explain: "Incorrect! Subject 'Kevin' requires 3rd person singular '-s'." },
+          { text: "will play", correct: false, explain: "Incorrect! Repeated habits take simple present." }
+        ]
+      },
+      {
+        tense: "SIMPLE_PRESENT", form: "AFFIRMATIVE", useCase: "Place of Origin",
+        prompt: "<span class='persona-badge'>Marcela</span> ______ (come) from Peru.",
+        options: [
+          { text: "comes", correct: true, explain: "Correct! Origin statements use simple present." },
+          { text: "is coming", correct: false, explain: "Incorrect! Place of origin uses simple present." },
+          { text: "come", correct: false, explain: "Incorrect! Marcela is 3rd person singular (needs '-s')." },
+          { text: "will come", correct: false, explain: "Incorrect! Origin is a permanent fact." }
+        ]
+      },
+      {
+        tense: "SIMPLE_PRESENT", form: "AFFIRMATIVE", useCase: "Time / If Clause",
+        prompt: "When <span class='persona-badge'>Jenny B.</span> ______ (retire), she will move to Mexico.",
+        options: [
+          { text: "retires", correct: true, explain: "Correct! Future time clauses require simple present after 'when'." },
+          { text: "will retire", correct: false, explain: "Incorrect! Do not use 'will' directly inside a time clause." },
+          { text: "is retiring", correct: false, explain: "Incorrect! Time clauses take simple present." },
+          { text: "retired", correct: false, explain: "Incorrect! This sentence refers to future event condition." }
+        ]
+      },
+      {
+        tense: "SIMPLE_PRESENT", form: "AFFIRMATIVE", useCase: "Nonaction Verb",
+        prompt: "<span class='persona-badge'>Jenny W.</span> ______ (care) deeply about her elderly grandparents.",
+        options: [
+          { text: "cares", correct: true, explain: "Correct! Stative/nonaction verbs take simple present." },
+          { text: "is caring", correct: false, explain: "Incorrect! 'Care about' is used as a stative verb here." },
+          { text: "care", correct: false, explain: "Incorrect! Requires 3rd person '-s' for Jenny W." },
+          { text: "will care", correct: false, explain: "Incorrect! Permanent attitudes take simple present." }
+        ]
+      },
+      {
+        tense: "SIMPLE_PRESENT", form: "AFFIRMATIVE", useCase: "Scheduled Event",
+        prompt: "The train for <span class='persona-badge'>Steven</span> ______ (leave) at 8:00 p.m. tonight.",
+        options: [
+          { text: "leaves", correct: true, explain: "Correct! Timetables and scheduled official events use simple present." },
+          { text: "is leaving", correct: false, explain: "Incorrect! Public timetables prefer simple present." },
+          { text: "leave", correct: false, explain: "Incorrect! 'Train' is 3rd person singular." },
+          { text: "will leave", correct: false, explain: "Incorrect! Scheduled timetables are stated in simple present." }
+        ]
+      },
+      {
+        tense: "SIMPLE_PRESENT", form: "AFFIRMATIVE", useCase: "General Truth",
+        prompt: "<span class='persona-badge'>Yussef</span> knows that light ______ (travel) faster than sound.",
+        options: [
+          { text: "travels", correct: true, explain: "Correct! Scientific facts and general truths take simple present." },
+          { text: "is traveling", correct: false, explain: "Incorrect! General truths take simple present, not continuous." },
+          { text: "will travel", correct: false, explain: "Incorrect! General truths are stated in simple present." },
+          { text: "travel", correct: false, explain: "Incorrect! Singular subject 'light' needs '-s'." }
+        ]
+      },
+      {
+        tense: "SIMPLE_PRESENT", form: "AFFIRMATIVE", useCase: "Nonaction Verb",
+        prompt: "<span class='persona-badge'>Marcela</span> ______ (know) the answer to every question.",
+        options: [
+          { text: "knows", correct: true, explain: "Correct! 'Know' is a stative nonaction verb." },
+          { text: "is knowing", correct: false, explain: "Incorrect! 'Know' cannot be used in continuous forms." },
+          { text: "know", correct: false, explain: "Incorrect! 3rd person singular subject needs '-s'." },
+          { text: "will know", correct: false, explain: "Incorrect! Stative knowledge takes simple present." }
+        ]
+      },
+
+      // -- Simple Present Negative (-) --
+      {
+        tense: "SIMPLE_PRESENT", form: "NEGATIVE", useCase: "General Truth",
+        prompt: "Most young people ______ (not / have) landline phones in their apartments.",
+        options: [
+          { text: "don't have", correct: true, explain: "Correct! Plural general truths take 'don't + base verb'." },
+          { text: "doesn't have", correct: false, explain: "Incorrect! 'People' is a plural noun." },
+          { text: "aren't having", correct: false, explain: "Incorrect! Possession as state takes simple present." },
+          { text: "won't have", correct: false, explain: "Incorrect! Statements of fact use simple present." }
+        ]
+      },
+      {
+        tense: "SIMPLE_PRESENT", form: "NEGATIVE", useCase: "Habit / Routine",
+        prompt: "<span class='persona-badge'>Yussef</span> ______ (not / visit) his hometown every month.",
+        options: [
+          { text: "doesn't visit", correct: true, explain: "Correct! 3rd person negative habit takes 'doesn't + base verb'." },
+          { text: "don't visit", correct: false, explain: "Incorrect! Yussef is singular (requires 'doesn't')." },
+          { text: "isn't visiting", correct: false, explain: "Incorrect! Routine activities take simple present." },
+          { text: "won't visit", correct: false, explain: "Incorrect! Repeated habits use simple present." }
+        ]
+      },
+      {
+        tense: "SIMPLE_PRESENT", form: "NEGATIVE", useCase: "Nonaction Verb",
+        prompt: "<span class='persona-badge'>Marcela</span> ______ (not / prefer) to live alone in the city.",
+        options: [
+          { text: "doesn't prefer", correct: true, explain: "Correct! Stative verb 'prefer' takes simple present negative." },
+          { text: "isn't preferring", correct: false, explain: "Incorrect! 'Prefer' is a nonaction verb." },
+          { text: "don't prefer", correct: false, explain: "Incorrect! 'Marcela' takes 'doesn't'." },
+          { text: "won't prefer", correct: false, explain: "Incorrect! Stative preferences use simple present." }
+        ]
+      },
+      {
+        tense: "SIMPLE_PRESENT", form: "NEGATIVE", useCase: "If Clause",
+        prompt: "If <span class='persona-badge'>Steven</span> ______ (not / need) help, he will complete the project alone.",
+        options: [
+          { text: "doesn't need", correct: true, explain: "Correct! 'If' condition clauses use simple present negative." },
+          { text: "won't need", correct: false, explain: "Incorrect! Do not use 'will' inside the 'if' condition clause." },
+          { text: "isn't needing", correct: false, explain: "Incorrect! 'Need' is a stative nonaction verb." },
+          { text: "don't need", correct: false, explain: "Incorrect! 'Steven' requires 'doesn't'." }
+        ]
+      },
+      {
+        tense: "SIMPLE_PRESENT", form: "NEGATIVE", useCase: "Nonaction Verb",
+        prompt: "<span class='persona-badge'>Jenny B.</span> ______ (not / care) for sweet dessert foods.",
+        options: [
+          { text: "doesn't care", correct: true, explain: "Correct! Stative preference uses 'doesn't + base verb'." },
+          { text: "isn't caring", correct: false, explain: "Incorrect! Nonaction verbs do not take continuous." },
+          { text: "don't care", correct: false, explain: "Incorrect! Subject is 3rd person singular." },
+          { text: "won't care", correct: false, explain: "Incorrect! General attitude takes simple present." }
+        ]
+      },
+
+      // -- Simple Present Question (?) --
+      {
+        tense: "SIMPLE_PRESENT", form: "QUESTION", useCase: "Place of Origin",
+        prompt: "______ <span class='persona-badge'>Jenny B.</span> ______ (come) from Mexico?",
+        options: [
+          { text: "Does / come", correct: true, explain: "Correct! Origin question: 'Does + subject + base verb'." },
+          { text: "Is / coming", correct: false, explain: "Incorrect! Place of origin uses simple present." },
+          { text: "Do / come", correct: false, explain: "Incorrect! Jenny B. requires auxiliary 'Does'." },
+          { text: "Will / come", correct: false, explain: "Incorrect! Origin question takes simple present." }
+        ]
+      },
+      {
+        tense: "SIMPLE_PRESENT", form: "QUESTION", useCase: "Habit / Routine",
+        prompt: "______ <span class='persona-badge'>Kevin</span> ______ (play) golf every weekend?",
+        options: [
+          { text: "Does / play", correct: true, explain: "Correct! Routine question uses 'Does + subject + base verb'." },
+          { text: "Is / playing", correct: false, explain: "Incorrect! Habits take simple present." },
+          { text: "Do / play", correct: false, explain: "Incorrect! 'Kevin' takes 'Does'." },
+          { text: "Will / play", correct: false, explain: "Incorrect! Routine habits use simple present." }
+        ]
+      },
+      {
+        tense: "SIMPLE_PRESENT", form: "QUESTION", useCase: "Scheduled Event",
+        prompt: "What time ______ the flight for <span class='persona-badge'>Yussef</span> ______ (leave) tonight?",
+        options: [
+          { text: "does / leave", correct: true, explain: "Correct! Schedules use 'does + subject + base verb'." },
+          { text: "is / leaving", correct: false, explain: "Incorrect! Fixed public schedules use simple present." },
+          { text: "will / leave", correct: false, explain: "Incorrect! Public timetables use simple present." },
+          { text: "do / leave", correct: false, explain: "Incorrect! 'Flight' is singular." }
+        ]
+      },
+      {
+        tense: "SIMPLE_PRESENT", form: "QUESTION", useCase: "Nonaction Verb",
+        prompt: "______ <span class='persona-badge'>Jenny W.</span> ______ (need) any assistance with her assignment?",
+        options: [
+          { text: "Does / need", correct: true, explain: "Correct! Stative verb 'need' takes 'Does + subject + base verb'." },
+          { text: "Is / needing", correct: false, explain: "Incorrect! 'Need' cannot be used in continuous forms." },
+          { text: "Do / need", correct: false, explain: "Incorrect! Subject requires 3rd person 'Does'." },
+          { text: "Will / need", correct: false, explain: "Incorrect! Stative state uses simple present." }
+        ]
+      },
+      {
+        tense: "SIMPLE_PRESENT", form: "QUESTION", useCase: "Nonaction Verb",
+        prompt: "______ <span class='persona-badge'>Steven</span> ______ (love) outdoor sports?",
+        options: [
+          { text: "Does / love", correct: true, explain: "Correct! Stative emotion verb takes 'Does + subject + base verb'." },
+          { text: "Is / loving", correct: false, explain: "Incorrect! 'Love' is nonaction here." },
+          { text: "Do / love", correct: false, explain: "Incorrect! Steven requires 'Does'." },
+          { text: "Will / love", correct: false, explain: "Incorrect! General feeling takes simple present." }
+        ]
+      },
+
+      // ==========================================
+      // === PRESENT CONTINUOUS SECTION ===========
+      // ==========================================
+      {
+        tense: "PRESENT_CONTINUOUS", form: "AFFIRMATIVE", useCase: "Action Happening Now",
+        prompt: "<span class='persona-badge'>Marcela</span> ______ (text) her brother right now.",
+        options: [
+          { text: "is texting", correct: true, explain: "Correct! Actions in progress right now use Present Continuous." },
+          { text: "texts", correct: false, explain: "Incorrect! Simple present is for regular habits." },
+          { text: "is text", correct: false, explain: "Incorrect! Present continuous form requires '-ing'." },
+          { text: "will text", correct: false, explain: "Incorrect! Describes action happening now." }
+        ]
+      },
+      {
+        tense: "PRESENT_CONTINUOUS", form: "AFFIRMATIVE", useCase: "Long-term Action in Progress",
+        prompt: "<span class='persona-badge'>Kevin</span> ______ (earn) money by tutoring students this semester.",
+        options: [
+          { text: "is earning", correct: true, explain: "Correct! Temporary ongoing actions use Present Continuous." },
+          { text: "earns", correct: false, explain: "Incorrect! Temporary general activity uses continuous form." },
+          { text: "will earn", correct: false, explain: "Incorrect! Ongoing current activity." },
+          { text: "is earn", correct: false, explain: "Incorrect! Missing '-ing' suffix." }
+        ]
+      },
+      {
+        tense: "PRESENT_CONTINUOUS", form: "AFFIRMATIVE", useCase: "Societal Trend",
+        prompt: "The population of young students ______ (get) interested in technology careers.",
+        options: [
+          { text: "is getting", correct: true, explain: "Correct! Societal trends take Present Continuous." },
+          { text: "gets", correct: false, explain: "Incorrect! Dynamic trends use continuous form." },
+          { text: "will get", correct: false, explain: "Incorrect! Trend currently unfolding." },
+          { text: "are getting", correct: false, explain: "Incorrect! 'Population' is a singular subject." }
+        ]
+      },
+      {
+        tense: "PRESENT_CONTINUOUS", form: "AFFIRMATIVE", useCase: "Definite Near-Future Plan",
+        prompt: "<span class='persona-badge'>Jenny B.</span> ______ (retire) next month.",
+        options: [
+          { text: "is retiring", correct: true, explain: "Correct! Fixed future arrangements use Present Continuous." },
+          { text: "retires", correct: false, explain: "Incorrect! Personal fixed plans take Present Continuous." },
+          { text: "will retire", correct: false, explain: "Incorrect! Definite near-future plans take Present Continuous." },
+          { text: "is retire", correct: false, explain: "Incorrect! Form requires '-ing'." }
+        ]
+      },
+      {
+        tense: "PRESENT_CONTINUOUS", form: "NEGATIVE", useCase: "Action Happening Now",
+        prompt: "<span class='persona-badge'>Yussef</span> ______ (not / send) an email at this moment; he is reading.",
+        options: [
+          { text: "isn't sending", correct: true, explain: "Correct! Present Continuous negative: 'isn't + verb-ing'." },
+          { text: "doesn't send", correct: false, explain: "Incorrect! Action right now takes Present Continuous." },
+          { text: "won't send", correct: false, explain: "Incorrect! Current action requires Present Continuous." },
+          { text: "aren't sending", correct: false, explain: "Incorrect! Yussef is singular." }
+        ]
+      },
+      {
+        tense: "PRESENT_CONTINUOUS", form: "NEGATIVE", useCase: "Definite Near-Future Plan",
+        prompt: "<span class='persona-badge'>Jenny W.</span> ______ (not / go) on a trip this weekend.",
+        options: [
+          { text: "isn't going", correct: true, explain: "Correct! Planned future arrangement negative uses 'isn't going'." },
+          { text: "doesn't go", correct: false, explain: "Incorrect! Fixed plans take Present Continuous." },
+          { text: "won't be go", correct: false, explain: "Incorrect! Invalid verb structure." },
+          { text: "aren't going", correct: false, explain: "Incorrect! Jenny W. is 3rd person singular." }
+        ]
+      },
+      {
+        tense: "PRESENT_CONTINUOUS", form: "QUESTION", useCase: "Action Happening Now",
+        prompt: "______ <span class='persona-badge'>Kevin</span> ______ (text) his friend right now?",
+        options: [
+          { text: "Is / texting", correct: true, explain: "Correct! Action right now: 'Is + subject + verb-ing'." },
+          { text: "Does / text", correct: false, explain: "Incorrect! Simple present is for regular habits." },
+          { text: "Will / text", correct: false, explain: "Incorrect! Action happening right now." },
+          { text: "Are / texting", correct: false, explain: "Incorrect! Subject is singular." }
+        ]
+      },
+      {
+        tense: "PRESENT_CONTINUOUS", form: "QUESTION", useCase: "Definite Near-Future Plan",
+        prompt: "______ <span class='persona-badge'>Jenny B.</span> ______ (leave) for Peru next week?",
+        options: [
+          { text: "Is / leaving", correct: true, explain: "Correct! Near-future plan question uses Present Continuous." },
+          { text: "Does / leave", correct: false, explain: "Incorrect! Near-future plans take Present Continuous." },
+          { text: "Will / leaves", correct: false, explain: "Incorrect! Invalid structure." },
+          { text: "Are / leaving", correct: false, explain: "Incorrect! Subject is singular." }
+        ]
+      },
+
+      // ==========================================
+      // === FUTURE (WILL / BE GOING TO) SECTION ==
+      // ==========================================
+      {
+        tense: "FUTURE", form: "AFFIRMATIVE", useCase: "Plan / Intention",
+        prompt: "<span class='persona-badge'>Steven</span> ______ (retire) in two years; he has already decided.",
+        options: [
+          { text: "is going to retire", correct: true, explain: "Correct! Pre-planned intention uses 'be going to'." },
+          { text: "will retire", correct: false, explain: "Incorrect! Pre-decided plans prefer 'be going to'." },
+          { text: "retires", correct: false, explain: "Incorrect! Future intentions use 'be going to'." },
+          { text: "is retire", correct: false, explain: "Incorrect! Form requires 'going to + base verb'." }
+        ]
+      },
+      {
+        tense: "FUTURE", form: "AFFIRMATIVE", useCase: "Prediction",
+        prompt: "Economists predict that there ______ (be) more jobs in health care.",
+        options: [
+          { text: "will be", correct: true, explain: "Correct! General future prediction uses 'will be'." },
+          { text: "are being", correct: false, explain: "Incorrect! Prediction requires future tense." },
+          { text: "is", correct: false, explain: "Incorrect! Expresses future prediction." },
+          { text: "be", correct: false, explain: "Incorrect! Missing modal verb." }
+        ]
+      },
+      {
+        tense: "FUTURE", form: "AFFIRMATIVE", useCase: "Spontaneous Promise / Offer",
+        prompt: "<span class='persona-badge'>Kevin</span>: 'I promise I ______ (take) care of you when you're old.'",
+        options: [
+          { text: "will take", correct: true, explain: "Correct! Promises and offers made at the moment use 'will'." },
+          { text: "am going to take", correct: false, explain: "Incorrect! Promises specifically use 'will'." },
+          { text: "take", correct: false, explain: "Incorrect! Future promise requires 'will'." },
+          { text: "am taking", correct: false, explain: "Incorrect! Promises take 'will'." }
+        ]
+      },
+      {
+        tense: "FUTURE", form: "NEGATIVE", useCase: "Prediction",
+        prompt: "<span class='persona-badge'>Jenny W.</span> thinks the number of elderly citizens ______ (not / decrease).",
+        options: [
+          { text: "won't decrease", correct: true, explain: "Correct! Negative prediction uses 'won't + base verb'." },
+          { text: "isn't going decrease", correct: false, explain: "Incorrect! Missing preposition 'to'." },
+          { text: "doesn't decrease", correct: false, explain: "Incorrect! Prediction takes future tense." },
+          { text: "not decrease", correct: false, explain: "Incorrect! Needs auxiliary 'won't'." }
+        ]
+      },
+      {
+        tense: "FUTURE", form: "NEGATIVE", useCase: "Plan / Intention",
+        prompt: "<span class='persona-badge'>Marcela</span> ______ (not / buy) a new car next year.",
+        options: [
+          { text: "is not going to buy", correct: true, explain: "Correct! Negative intention uses 'is not going to + verb'." },
+          { text: "won't to buy", correct: false, explain: "Incorrect! 'Will' takes base verb without 'to'." },
+          { text: "doesn't buy", correct: false, explain: "Incorrect! Future intention uses future tense." },
+          { text: "isn't buy", correct: false, explain: "Incorrect! Missing 'going to'." }
+        ]
+      },
+      {
+        tense: "FUTURE", form: "QUESTION", useCase: "Plan / Intention",
+        prompt: "______ <span class='persona-badge'>Yussef</span> ______ (retire) in two years?",
+        options: [
+          { text: "Is / going to retire", correct: true, explain: "Correct! Intention question: 'Is + subject + going to + verb'." },
+          { text: "Will / retires", correct: false, explain: "Incorrect! Requires base verb after 'will'." },
+          { text: "Does / retire", correct: false, explain: "Incorrect! Simple present is for habits/schedules." },
+          { text: "Is / retire", correct: false, explain: "Incorrect! Missing 'going to'." }
+        ]
+      },
+      {
+        tense: "FUTURE", form: "QUESTION", useCase: "Prediction",
+        prompt: "______ there ______ (be) more jobs in technology in ten years?",
+        options: [
+          { text: "Will / be", correct: true, explain: "Correct! Prediction question: 'Will + subject + base verb'." },
+          { text: "Is / going to be", correct: false, explain: "Incorrect! Subject 'jobs' would require 'Are'." },
+          { text: "Does / be", correct: false, explain: "Incorrect! Invalid verb form." },
+          { text: "Are / be", correct: false, explain: "Incorrect! Invalid modal structure." }
+        ]
+      }
+    ];
+
+    let currentTenseFilter = "ALL";
+    let currentFormFilter = "ALL";
+    let activeQueue = [];
+    let currentIndex = 0;
+    let score = 0;
+    let streak = 0;
+
+    // Fisher-Yates Shuffling Algorithm
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    const topicBadge = document.getElementById('topic-badge');
+    const promptText = document.getElementById('prompt-text');
+    const feedbackArea = document.getElementById('feedback-area');
+    const optionsArea = document.getElementById('options-area');
+    const scoreVal = document.getElementById('score-val');
+    const streakVal = document.getElementById('streak-val');
+    const itemCounter = document.getElementById('item-counter');
+    const nextBtn = document.getElementById('next-btn');
+
+    document.querySelectorAll('.mode-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        currentTenseFilter = e.target.dataset.tense;
+        resetSession();
+      });
+    });
+
+    document.querySelectorAll('.filter-pill').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        currentFormFilter = e.target.dataset.form;
+        resetSession();
+      });
+    });
+
+    function filterData() {
+      return dataset.filter(item => {
+        const tenseMatch = (currentTenseFilter === "ALL") || (item.tense === currentTenseFilter);
+        const formMatch = (currentFormFilter === "ALL") || (item.form === currentFormFilter);
+        return tenseMatch && formMatch;
+      });
+    }
+
+    function resetSession() {
+      const filtered = filterData();
+      if (filtered.length === 0) {
+        activeQueue = [];
+      } else {
+        // Shuffle questions and dynamically shuffle choices for each question
+        activeQueue = shuffle(filtered).map(item => ({
+          ...item,
+          shuffledOptions: shuffle(item.options)
+        }));
+      }
+      currentIndex = 0;
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      feedbackArea.innerHTML = '';
+      nextBtn.classList.add('hidden');
+
+      if (activeQueue.length === 0) {
+        promptText.innerHTML = "No questions match the selected filters. Please select another filter option above.";
+        topicBadge.textContent = "NO MATCH";
+        optionsArea.innerHTML = '';
+        itemCounter.textContent = "0 / 0";
+        return;
+      }
+
+      const q = activeQueue[currentIndex];
+      topicBadge.textContent = `${q.tense.replace('_', ' ')} • ${q.useCase.toUpperCase()} (${q.form})`;
+      promptText.innerHTML = q.prompt;
+      itemCounter.textContent = `Item ${currentIndex + 1} of ${activeQueue.length}`;
+
+      optionsArea.innerHTML = '';
+      q.shuffledOptions.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'btn-option';
+        btn.innerHTML = `<span><strong>${String.fromCharCode(65 + idx)}.</strong> ${opt.text}</span>`;
+        btn.addEventListener('click', () => handleSelection(opt, btn, q));
+        optionsArea.appendChild(btn);
+      });
+    }
+
+    function handleSelection(selectedOpt, btnElement, questionObj) {
+      const allBtns = optionsArea.querySelectorAll('.btn-option');
+      allBtns.forEach(b => b.style.pointerEvents = 'none');
+
+      if (selectedOpt.correct) {
+        btnElement.classList.add('correct');
+        score += 100 + (streak * 10);
+        streak++;
+        feedbackArea.innerHTML = `
+          <div class="feedback-banner success">
+            ✓ ${selectedOpt.explain}
+          </div>
+        `;
+      } else {
+        btnElement.classList.add('wrong');
+        streak = 0;
+
+        allBtns.forEach((b, i) => {
+          if (questionObj.shuffledOptions[i].correct) {
+            b.classList.add('correct');
+          }
+        });
+
+        feedbackArea.innerHTML = `
+          <div class="feedback-banner error">
+            ✗ ${selectedOpt.explain}
+          </div>
+        `;
+      }
+
+      scoreVal.textContent = score;
+      streakVal.textContent = streak;
+      nextBtn.classList.remove('hidden');
+    }
+
+    function nextQuestion() {
+      currentIndex++;
+      if (currentIndex >= activeQueue.length) {
+        resetSession();
+      } else {
+        renderQuestion();
+      }
+    }
+
+    window.addEventListener('load', () => {
+      resetSession();
+    });
+  </script>
+</body>
+</html>
